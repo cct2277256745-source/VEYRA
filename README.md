@@ -4,7 +4,9 @@
 
 VEYRA 当前以 Flutter 桌面源码形式发布，包含可运行的 demo 数据、SQLite 本地持久化、可选的 OpenAI-compatible AI 接口，以及一套围绕“确认后再落库”的规划交互。
 
-> 当前 showcase 版本暂不附 UI 截图：仓库内已有截图要么对应旧界面，要么包含字体/调试渲染问题。这里用可运行 demo、源码和 Mermaid 结构图作为可核验的产品证明。
+![VEYRA 项目总览](docs/assets/projects-overview.png)
+
+*上图来自当前 macOS debug 构建的真实运行截图，使用隔离的 demo 数据生成。*
 
 ## 它解决什么问题
 
@@ -97,7 +99,8 @@ test/                   公开的单元测试、widget 测试与功能测试
 integration_test/       本地持久化与 AI 设置集成测试
 macos/                  macOS runner 与应用配置
 windows/                Windows runner 与应用配置
-docs/                   产品需求与 UI 规格
+docs/                   产品需求、UI 规格与 showcase 资产
+docs/assets/            当前构建截图与源码对齐的结构图
 DESIGN.md               视觉系统与设计约束
 pubspec.yaml            依赖与运行时配置
 pubspec.lock            已解析依赖版本
@@ -122,7 +125,7 @@ flutter build macos --debug   ✓ Built macOS app
 
 - 当前仓库是作品集源码发布，不提供预构建安装包或自动更新器。
 - AI 能力依赖用户自行提供 endpoint、model 和 API key；不承诺任何特定供应商的可用性或价格。
-- 视觉截图将在一次可复现且无调试错误的桌面运行验收后再单独加入。
+- 本次发布包含一张当前 macOS 构建的真实总览截图；旧的、未通过视觉验收的截图没有发布。
 - 当前没有附带开源许可证；如要允许他人复用，请在发布前选择并加入明确的 LICENSE。
 
 ## English summary
