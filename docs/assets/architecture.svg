@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">VEYRA product architecture</title>
+  <desc id="desc">The user enters the desktop app shell, which leads to Projects, Week, Inbox, and Review. These features persist to a local SQLite database. The planning gate can call an optional OpenAI-compatible provider and receive a proposal for user confirmation. Settings connects to secure key storage and the AI provider.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748B"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <style>
+      .title { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0F172A; }
+      .subtitle { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .label { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0F172A; }
+      .small { font: 400 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .box { fill: #FFFFFF; stroke: #CBD5E1; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .accent { fill: #EEF2FF; stroke: #818CF8; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .data { fill: #ECFDF5; stroke: #34D399; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .ai { fill: #FFF7ED; stroke: #FB923C; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .secure { fill: #FDF2F8; stroke: #F472B6; stroke-width: 2; rx: 16; filter: url(#shadow); }
+      .line { fill: none; stroke: #64748B; stroke-width: 2.5; marker-end: url(#arrow); }
+      .dashed { fill: none; stroke: #F97316; stroke-width: 2.5; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1400" height="820" fill="#F8FAFC"/>
+  <text x="70" y="72" class="title">VEYRA · Product structure</text>
+  <text x="70" y="105" class="subtitle">Source-aligned view of the desktop shell, local data boundary, and optional AI proposal loop</text>
+
+  <rect x="70" y="335" width="170" height="86" class="accent"/>
+  <text x="155" y="371" text-anchor="middle" class="label">用户</text>
+  <text x="155" y="397" text-anchor="middle" class="small">目标 / 行动 / 复盘</text>
+
+  <rect x="310" y="275" width="250" height="210" class="accent"/>
+  <text x="435" y="320" text-anchor="middle" class="label">桌面 App Shell</text>
+  <text x="435" y="352" text-anchor="middle" class="small">Projects · Week · Inbox</text>
+  <text x="435" y="377" text-anchor="middle" class="small">Review · Settings</text>
+  <text x="435" y="426" text-anchor="middle" class="small">Flutter / macOS / Windows</text>
+
+  <rect x="650" y="145" width="240" height="92" class="box"/>
+  <text x="770" y="182" text-anchor="middle" class="label">项目与焦点工作台</text>
+  <text x="770" y="209" text-anchor="middle" class="small">阶段 · 里程碑 · 下一步</text>
+
+  <rect x="650" y="275" width="240" height="92" class="box"/>
+  <text x="770" y="312" text-anchor="middle" class="label">周计划</text>
+  <text x="770" y="339" text-anchor="middle" class="small">容量 · 重新平衡</text>
+
+  <rect x="650" y="405" width="240" height="92" class="box"/>
+  <text x="770" y="442" text-anchor="middle" class="label">收件箱</text>
+  <text x="770" y="469" text-anchor="middle" class="small">捕捉 · 转入项目</text>
+
+  <rect x="650" y="535" width="240" height="92" class="box"/>
+  <text x="770" y="572" text-anchor="middle" class="label">项目 / 周复盘</text>
+  <text x="770" y="599" text-anchor="middle" class="small">成果故事 · 进展记录</text>
+
+  <rect x="1010" y="120" width="270" height="100" class="data"/>
+  <text x="1145" y="161" text-anchor="middle" class="label">SQLite 本地数据库</text>
+  <text x="1145" y="190" text-anchor="middle" class="small">Drift · migrations · demo seed</text>
+
+  <rect x="1010" y="310" width="270" height="100" class="ai"/>
+  <text x="1145" y="351" text-anchor="middle" class="label">OpenAI-compatible Provider</text>
+  <text x="1145" y="380" text-anchor="middle" class="small">可选 · JSON 规划请求</text>
+
+  <rect x="1010" y="500" width="270" height="100" class="secure"/>
+  <text x="1145" y="541" text-anchor="middle" class="label">系统安全存储</text>
+  <text x="1145" y="570" text-anchor="middle" class="small">API Key · Keychain / DPAPI</text>
+
+  <rect x="610" y="690" width="300" height="76" class="ai"/>
+  <text x="760" y="722" text-anchor="middle" class="label">规划确认门禁</text>
+  <text x="760" y="747" text-anchor="middle" class="small">AI 提案 → 用户确认 → 落库</text>
+
+  <path d="M 240 378 L 310 378" class="line"/>
+  <path d="M 560 315 C 600 270, 610 195, 650 190" class="line"/>
+  <path d="M 560 350 L 650 320" class="line"/>
+  <path d="M 560 405 L 650 450" class="line"/>
+  <path d="M 560 445 C 600 500, 610 570, 650 580" class="line"/>
+  <path d="M 890 190 L 1010 170" class="line"/>
+  <path d="M 890 320 L 1010 190" class="line"/>
+  <path d="M 890 450 L 1010 190" class="line"/>
+  <path d="M 890 580 L 1010 190" class="line"/>
+  <path d="M 770 237 L 760 690" class="dashed"/>
+  <path d="M 910 728 C 960 700, 980 410, 1010 360" class="dashed"/>
+  <path d="M 1010 360 C 960 345, 930 255, 890 205" class="dashed"/>
+  <path d="M 560 465 C 770 650, 880 560, 1010 550" class="line"/>
+
+  <text x="925" y="286" class="small" fill="#F97316">optional AI loop</text>
+  <text x="940" y="674" class="small">confirmation boundary</text>
+</svg>
