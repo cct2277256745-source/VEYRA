@@ -75,23 +75,23 @@ void main() {
 
   testWidgets('Plan View：手动建阶段与任务并可完成任务', (WidgetTester tester) async {
     await pumpApp(tester, seed: (services) async {
-      final project = await services.projects.createProject(title: '求职作品集');
-      final phase = await services.projects.createPhase(project.id, '研究');
+      final project = await services.projects.createProject(title: '减脂计划');
+      final phase = await services.projects.createPhase(project.id, '饮食与活动');
       await services.projects.createTask(
         projectId: project.id,
         phaseId: phase.id,
-        title: '写 Problem Statement',
+        title: '记录饮食与步数',
         priority: TaskPriority.must,
       );
     });
 
-    await tester.tap(find.text('求职作品集'));
+    await tester.tap(find.text('减脂计划'));
     await tester.pumpAndSettle();
-    expect(find.text('写 Problem Statement'), findsOneWidget);
+    expect(find.text('记录饮食与步数'), findsOneWidget);
 
     await tester.tap(find.text('查看完整规划'));
     await tester.pumpAndSettle();
-    expect(find.text('阶段 · 研究'), findsOneWidget);
+    expect(find.text('阶段 · 饮食与活动'), findsOneWidget);
     expect(find.text('必做'), findsOneWidget);
 
     // 完成任务

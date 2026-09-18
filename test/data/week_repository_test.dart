@@ -13,7 +13,7 @@ void main() {
 
   test('Project Only 任务加入 Week 被拒绝（PRD §11 硬规则）', () async {
     final project = await services.projects.createProject(
-        title: '作品集', executionMode: ExecutionMode.projectOnly);
+        title: '减脂计划', executionMode: ExecutionMode.projectOnly);
     final phase = await services.projects.createPhase(project.id, '研究');
     final task = await services.projects
         .createTask(projectId: project.id, phaseId: phase.id, title: 'T');

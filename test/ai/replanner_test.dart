@@ -29,13 +29,13 @@ void main() {
       priority: TaskPriority.optional,
     );
     await services.week.assignTaskToWeek(task.id);
-    final portfolio = await services.projects.createProject(
-        title: '作品集', executionMode: ExecutionMode.projectOnly);
-    final p2 = await services.projects.createPhase(portfolio.id, '视觉');
+    final fitness = await services.projects.createProject(
+        title: '健身 12 周计划', executionMode: ExecutionMode.projectOnly);
+    final p2 = await services.projects.createPhase(fitness.id, '动作复盘');
     await services.projects.createTask(
-      projectId: portfolio.id,
+      projectId: fitness.id,
       phaseId: p2.id,
-      title: '作品集视觉',
+      title: '整理动作记录',
     );
   }
 

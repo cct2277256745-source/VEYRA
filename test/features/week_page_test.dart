@@ -44,16 +44,16 @@ void main() {
     await services.week.assignTaskToWeek(t1.id);
 
     final only = await services.projects
-        .createProject(title: '作品集', executionMode: ExecutionMode.projectOnly);
-    final p2 = await services.projects.createPhase(only.id, '研究');
+        .createProject(title: '减脂计划', executionMode: ExecutionMode.projectOnly);
+    final p2 = await services.projects.createPhase(only.id, '饮食与活动');
     await services.projects
-        .createTask(projectId: only.id, phaseId: p2.id, title: '写 Problem Statement');
+        .createTask(projectId: only.id, phaseId: p2.id, title: '记录饮食与步数');
 
     await pumpWeek(tester);
 
     expect(find.textContaining('完成阅读模块 02'), findsWidgets);
-    expect(find.textContaining('写 Problem Statement'), findsNothing);
-    expect(find.textContaining('作品集'), findsNothing);
+    expect(find.textContaining('记录饮食与步数'), findsNothing);
+    expect(find.textContaining('减脂计划'), findsNothing);
   });
 
   testWidgets('容量切换写入仓储', (tester) async {
@@ -66,16 +66,16 @@ void main() {
 
   testWidgets('加入任务按钮列出 Weekly 项目未分配任务', (tester) async {
     final weekly = await services.projects
-        .createProject(title: '求职', executionMode: ExecutionMode.weeklyPlanning);
-    final phase = await services.projects.createPhase(weekly.id, '简历');
+        .createProject(title: '健身', executionMode: ExecutionMode.weeklyPlanning);
+    final phase = await services.projects.createPhase(weekly.id, '训练节奏');
     await services.projects
-        .createTask(projectId: weekly.id, phaseId: phase.id, title: '优化简历');
+        .createTask(projectId: weekly.id, phaseId: phase.id, title: '安排恢复日');
 
     await pumpWeek(tester);
     await tester.tap(find.text('加入任务'));
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('优化简历'), findsOneWidget);
+    expect(find.textContaining('安排恢复日'), findsOneWidget);
   });
 
   testWidgets('重新平衡：输入变化 → 预览拟调整 → 全部应用', (tester) async {

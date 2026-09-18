@@ -16,15 +16,15 @@ void main() {
     test('合法 JSON 解析成功', () {
       final draft = PlanDraft.fromJson({
         'project': {
-          'title': 'AI 产品经理求职',
-          'outcome': '拿到 offer',
+          'title': '健身 12 周计划',
+          'outcome': '完成 12 周训练',
           'executionMode': 'weekly_planning',
           'phases': [
             {
               'title': '准备期',
               'tasks': [
                 {
-                  'title': '改简历',
+                  'title': '记录训练',
                   'priority': 'must',
                   'estimatedEffort': 'medium',
                   'dependencies': [],
@@ -34,7 +34,7 @@ void main() {
           ],
         }
       });
-      expect(draft.title, 'AI 产品经理求职');
+      expect(draft.title, '健身 12 周计划');
       expect(draft.suggestedMode, SuggestedExecutionMode.weeklyPlanning);
       expect(draft.phases.single.tasks.single.priority, PlanTaskPriority.must);
     });
@@ -115,25 +115,25 @@ void main() {
       expect(parsed.phases, isNotEmpty);
 
       final tasks = await mock
-          .decomposeTask(AIDecomposeRequest(taskTitle: '完成作品集'));
+          .decomposeTask(AIDecomposeRequest(taskTitle: '完成训练记录'));
       expect(tasks, isNotEmpty);
 
       final rebalance = await mock.proposeRebalance(AIRebalanceRequest(
-        situation: '周五突然有一个面试',
+        situation: '周五突然有额外安排',
         currentWeekDescription: '三件事',
         deadlineDescription: '两周后',
-        taskSummary: '写作/作品集',
+        taskSummary: '训练/饮食记录',
       ));
       expect(rebalance.changes, isNotEmpty);
 
       final review = await mock.generateReview(AIReviewRequest(
         scopeDescription: '本周',
-        completedItems: ['一份优化简历'],
+        completedItems: ['一份训练记录'],
         milestonesCompleted: [],
-        deferredItems: ['作品集视觉'],
+        deferredItems: ['动作复盘'],
       ));
       expect(review.oneLineSummary, isNotEmpty);
-      expect(review.highlights, contains('一份优化简历'));
+      expect(review.highlights, contains('一份训练记录'));
     });
 
     test('failWith 抛出指定异常', () async {

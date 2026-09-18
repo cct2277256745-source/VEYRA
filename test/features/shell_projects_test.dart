@@ -56,21 +56,21 @@ void main() {
   testWidgets('Projects：卡片含当前阶段/迷你路径/下一步，More 菜单可归档并恢复',
       (tester) async {
     final project = await services.projects.createProject(
-      title: 'AI 产品经理求职',
-      outcome: '拿到 offer',
+      title: '健身 12 周计划',
+      outcome: '完成 12 周训练',
       executionMode: ExecutionMode.weeklyPlanning,
     );
-    final phase = await services.projects.createPhase(project.id, '研究');
+    final phase = await services.projects.createPhase(project.id, '动作复盘');
     await services.projects
-        .createTask(projectId: project.id, phaseId: phase.id, title: '分析岗位要求');
-    final phase2 = await services.projects.createPhase(project.id, '简历');
+        .createTask(projectId: project.id, phaseId: phase.id, title: '整理训练记录');
+    final phase2 = await services.projects.createPhase(project.id, '训练节奏');
     await services.projects
-        .createTask(projectId: project.id, phaseId: phase2.id, title: '重写经历');
+        .createTask(projectId: project.id, phaseId: phase2.id, title: '安排恢复日');
 
     await pumpApp(tester);
 
-    expect(find.textContaining('当前阶段 · 研究'), findsOneWidget);
-    expect(find.textContaining('下一步：分析岗位要求'), findsOneWidget);
+    expect(find.textContaining('当前阶段 · 动作复盘'), findsOneWidget);
+    expect(find.textContaining('下一步：整理训练记录'), findsOneWidget);
 
     // More 菜单 → 归档项目
     await tester.tap(find.byIcon(Icons.more_horiz));
@@ -79,7 +79,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // 活动列表为空，出现已归档入口
-    expect(find.textContaining('AI 产品经理求职'), findsNothing);
+    expect(find.textContaining('健身 12 周计划'), findsNothing);
     expect(find.text('已归档项目'), findsOneWidget);
 
     // 展开已归档 → 恢复
@@ -89,7 +89,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('恢复项目'));
     await tester.pumpAndSettle();
-    expect(find.textContaining('AI 产品经理求职'), findsOneWidget);
+    expect(find.textContaining('健身 12 周计划'), findsOneWidget);
   });
 
   testWidgets('Projects：空状态文案与新建入口', (tester) async {

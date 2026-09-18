@@ -1,4 +1,4 @@
-/// VEYRA Design Tokens（docs/VEYRA_UI_Specification_v1.md §3）。
+/// VEYRA Design Tokens。
 /// 全 App 禁止硬编码颜色 / 间距 / 圆角 / 时长。
 library;
 

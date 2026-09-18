@@ -22,30 +22,30 @@ void main() {
     // —— 第一次“运行” —— //
     final first = AppServices.openFile(dbFile);
     final project = await first.projects.createProject(
-      title: 'AI 产品经理求职',
-      outcome: '拿到 offer',
+      title: '健身 12 周计划',
+      outcome: '完成 12 周训练',
       executionMode: ExecutionMode.weeklyPlanning,
     );
-    final phase = await first.projects.createPhase(project.id, '作品集');
+    final phase = await first.projects.createPhase(project.id, '训练记录');
     final task = await first.projects.createTask(
       projectId: project.id,
       phaseId: phase.id,
-      title: '完成 Campaign Visuals',
+      title: '完成训练记录',
       priority: TaskPriority.must,
     );
     await first.week.assignTaskToWeek(task.id);
     await first.week.setCapacity(DateTime.now(), CapacityLevel.busy);
-    await first.inbox.add(kind: InboxKind.quickTask, content: '周五投递 3 家');
+    await first.inbox.add(kind: InboxKind.quickTask, content: '周五完成 3 组训练');
     await first.close();
 
     // —— 第二次“运行”（模拟 App 重启） —— //
     final second = AppServices.openFile(dbFile);
     final loaded = await second.projects.getProject(project.id);
     expect(loaded, isNotNull);
-    expect(loaded!.title, 'AI 产品经理求职');
+    expect(loaded!.title, '健身 12 周计划');
 
     final tasks = await second.projects.tasksOfProject(project.id);
-    expect(tasks.single.title, '完成 Campaign Visuals');
+    expect(tasks.single.title, '完成训练记录');
 
     final weekItems = await second.week.weekItems(DateTime.now());
     expect(weekItems.single.$2.id, task.id);

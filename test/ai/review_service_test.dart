@@ -38,21 +38,21 @@ void main() {
 
   test('项目复盘：成果（outcomeNote）优先，里程碑与推迟分列，快照入库', () async {
     final project = await services.projects.createProject(
-        title: 'AI 产品经理求职', executionMode: ExecutionMode.weeklyPlanning);
-    final phase = await services.projects.createPhase(project.id, '简历');
+        title: '健身 12 周计划', executionMode: ExecutionMode.weeklyPlanning);
+    final phase = await services.projects.createPhase(project.id, '动作复盘');
     final task = await services.projects.createTask(
       projectId: project.id,
       phaseId: phase.id,
-      title: '优化简历',
+      title: '整理训练记录',
     );
-    await services.projects.completeTask(task.id, outcomeNote: '一份针对 AI PM 优化的简历');
-    final milestone = await services.projects.createMilestone(phase.id, '简历定稿');
+    await services.projects.completeTask(task.id, outcomeNote: '完成一轮训练复盘');
+    final milestone = await services.projects.createMilestone(phase.id, '训练记录整理');
     await services.projects.completeMilestone(milestone.id);
 
     final story = await review.projectReview(project.id);
 
-    expect(story.highlights, contains('优化简历：一份针对 AI PM 优化的简历'));
-    expect(story.milestones, contains('简历定稿'));
+    expect(story.highlights, contains('整理训练记录：完成一轮训练复盘'));
+    expect(story.milestones, contains('训练记录整理'));
     expect(story.completedCount, 1);
     expect(story.aiSummary, isNotNull);
 
@@ -60,7 +60,7 @@ void main() {
         await services.progress.latestProjectSnapshot(project.id);
     expect(snapshot, isNotNull);
     expect(snapshot!.aiSummary, story.aiSummary);
-    expect(snapshot.storyJson, contains('一份针对 AI PM 优化的简历'));
+    expect(snapshot.storyJson, contains('完成一轮训练复盘'));
   });
 
   test('周复盘：聚合本周完成/推迟事件，快照按周存储', () async {
@@ -105,10 +105,10 @@ void main() {
   });
 
   testWidgets('项目 Focus 页复盘入口 → 项目复盘页', (tester) async {
-    await services.projects.createProject(title: '求职作品集');
+    await services.projects.createProject(title: '减脂计划');
     await _pump(tester, services);
 
-    await tester.tap(find.text('求职作品集'));
+    await tester.tap(find.text('减脂计划'));
     await tester.pumpAndSettle();
     await tester.tap(find.byIcon(Icons.insights_outlined));
     await tester.pumpAndSettle();

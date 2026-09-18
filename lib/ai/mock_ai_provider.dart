@@ -188,7 +188,7 @@ class MockAIProvider implements AIProvider {
         ),
         RebalanceChange(
           kind: RebalanceChangeKind.priorityChange,
-          taskTitle: '作品集视觉',
+          taskTitle: '整理动作记录',
           from: '可选',
           to: '必做',
           detail: '距截止日还有两周，视觉部分需要提前。',
@@ -199,7 +199,7 @@ class MockAIProvider implements AIProvider {
           detail: '根据你的新情况新增。',
         ),
       ],
-      summary: '建议把写作顺延一周，并提前作品集视觉。',
+      summary: '建议把写作顺延一周，并提前整理动作记录。',
     );
   }
 

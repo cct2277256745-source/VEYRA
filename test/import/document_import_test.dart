@@ -45,9 +45,9 @@ void main() {
   group('TXT / Markdown', () {
     test('UTF-8 中文计划正常提取', () async {
       final text = await TextLikeExtractor()
-          .extractText(utf8.encode('# 求职计划\n\n第一周：简历'), 'plan.md');
-      expect(text, contains('求职计划'));
-      expect(text, contains('第一周：简历'));
+          .extractText(utf8.encode('# 雅思计划\n\n第一周：听力'), 'plan.md');
+      expect(text, contains('雅思计划'));
+      expect(text, contains('第一周：听力'));
     });
 
     test('非 UTF-8 内容给出明确失败', () async {
@@ -61,10 +61,10 @@ void main() {
   group('DOCX', () {
     test('段落文本按 w:t 提取并换行', () async {
       final bytes = docxBytes(
-          '<w:p><w:r><w:t>第一周：简历</w:t></w:r></w:p><w:p><w:r><w:t>第二周：作品集</w:t></w:r></w:p>');
+          '<w:p><w:r><w:t>第一周：听力</w:t></w:r></w:p><w:p><w:r><w:t>第二周：阅读</w:t></w:r></w:p>');
       final text = await DocxExtractor().extractText(bytes, 'plan.docx');
-      expect(text, contains('第一周：简历'));
-      expect(text, contains('第二周：作品集'));
+      expect(text, contains('第一周：听力'));
+      expect(text, contains('第二周：阅读'));
     });
 
     test('损坏的 ZIP 给出明确失败', () async {
@@ -90,13 +90,13 @@ void main() {
     });
 
     test('UTF-16BE 十六进制字符串（中文）', () async {
-      final qiu = '求'.codeUnits.map((c) => c.toRadixString(16).padLeft(4, '0')).join();
-      final zhi = '职'.codeUnits.map((c) => c.toRadixString(16).padLeft(4, '0')).join();
-      final hex = 'FEFF$qiu$zhi';
+      final jian = '健'.codeUnits.map((c) => c.toRadixString(16).padLeft(4, '0')).join();
+      final shen = '身'.codeUnits.map((c) => c.toRadixString(16).padLeft(4, '0')).join();
+      final hex = 'FEFF$jian$shen';
       final bytes =
           pdfBytes(streamBody: 'BT /F1 12 Tf <$hex> Tj ET');
       final text = await PdfExtractor().extractText(bytes, 'plan.pdf');
-      expect(text, contains('求职'));
+      expect(text, contains('健身'));
     });
 
     test('加密 PDF 明确提示', () async {
@@ -161,10 +161,10 @@ void main() {
       final dir = await Directory.systemTemp.createTemp('veyra_import');
       addTearDown(() => dir.delete(recursive: true));
       final file = File('${dir.path}/plan.txt');
-      await file.writeAsString('12 周求职计划', flush: true);
+      await file.writeAsString('12 周健身计划', flush: true);
       final service = DocumentImportService(saveSourceDocument: (_) async => 1);
       final extracted = await service.importFromFile(file);
-      expect(extracted.text, contains('12 周求职计划'));
+      expect(extracted.text, contains('12 周健身计划'));
     });
   });
 }

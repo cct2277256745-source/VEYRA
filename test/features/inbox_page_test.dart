@@ -52,16 +52,16 @@ void main() {
 
     testWidgets('快速记录 → 列表出现条目', (tester) async {
       await pumpInbox(tester);
-      await tester.enterText(find.byType(TextField).first, '给作品集补一页 About');
+      await tester.enterText(find.byType(TextField).first, '给训练记录补一页复盘');
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pumpAndSettle();
 
-      expect(find.text('给作品集补一页 About'), findsOneWidget);
+      expect(find.text('给训练记录补一页复盘'), findsOneWidget);
     });
 
     testWidgets('转入已有项目：任务出现在项目中，条目转为已处理', (tester) async {
-      final project = await services.projects.createProject(title: '求职作品集');
-      final phase = await services.projects.createPhase(project.id, '研究');
+      final project = await services.projects.createProject(title: '减脂计划');
+      final phase = await services.projects.createPhase(project.id, '饮食与活动');
       await services.projects.createTask(
           projectId: project.id, phaseId: phase.id, title: '已有任务');
       await services.inbox
@@ -70,7 +70,7 @@ void main() {
       await pumpInbox(tester, waitFor: '整理用户访谈笔记');
       await tester.tap(find.text('移入项目'));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('求职作品集'));
+      await tester.tap(find.text('减脂计划'));
       await tester.pumpAndSettle();
 
       // 条目已转为已处理，从列表消失
